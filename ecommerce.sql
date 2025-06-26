@@ -37,7 +37,7 @@ CREATE TABLE OrderItems (
 
 
 INSERT INTO Customers (name, email, address) VALUES
-('Vasanth', 'Vasanth@gmail.com', 'Hyderbad, India'),
+('Sai', 'sai@gmail.com', 'Hyderbad, India'),
 ('Neeraj', 'neeraj@gmail.com', 'Bangalore, India');
 
 INSERT INTO Categories (category_name) VALUES
@@ -46,9 +46,9 @@ INSERT INTO Categories (category_name) VALUES
 ('Clothing');
 
 INSERT INTO Products (name, price, stock, category_id) VALUES
-('Smartphone', 14999.99, 50, 1),
-('Wireless Earbuds', 2999.99, 150, 1),
-('Fiction Novel', 499.00, 200, 2),
+('Smartphone', 10000, 50, 1),
+('Wireless Earbuds', 3000, 150, 1),
+('Fiction Novel', 500.00, 200, 2),
 ('T-Shirt', 799.00, 100, 3);
 
 INSERT INTO Orders (customer_id, order_date) VALUES
@@ -59,3 +59,29 @@ INSERT INTO OrderItems (order_id, product_id, quantity) VALUES
 (1, 1, 1),  
 (1, 2, 2),  
 (2, 3, 3);  
+
+-- default value
+INSERT INTO OrderItems (order_id, product_id, quantity)
+VALUES (1, 4, DEFAULT);
+
+-- nullable
+INSERT INTO Customers (name, email, address)
+VALUES ('Amit Sharma', 'amit@example.com', NULL);
+
+-- Update stock for a product
+UPDATE Products
+SET stock = stock - 1
+WHERE product_id = 1;
+
+-- Update email for a customer
+UPDATE Customers
+SET email = 'new_email@example.com'
+WHERE customer_id = 2;
+
+-- Delete a specific order item
+DELETE FROM OrderItems
+WHERE order_id = 2 AND product_id = 3;
+
+-- Delete a customer who hasn’t placed an order (use with care!)
+DELETE FROM Customers
+WHERE customer_id NOT IN (SELECT customer_id FROM Orders);
